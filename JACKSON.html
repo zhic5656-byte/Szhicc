@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>沈志诚 · 环境设计/平面设计/编曲/AIGC | 在线简历</title>
+  <style>
+    :root {
+      --sidebar-bg: #1a1a1a;
+      --sidebar-text: #cccccc;
+      --accent: #444444;
+      --accent-light: #666666;
+      --bg-main: #f5f5f5;
+      --card-bg: #ffffff;
+      --text-dark: #1a1a1a;
+      --text-mid: #4d4d4d;
+      --text-light: #737373;
+      --border-light: #e6e6e6;
+      --shadow-sm: 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-md: 0 6px 18px rgba(0,0,0,0.06);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,0.10);
+      --radius: 16px;
+      --font-cn: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font-cn);
+      background: var(--bg-main);
+      color: var(--text-dark);
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+    }
+    .resume-wrapper { width: 100%; max-width: 1200px; display: flex; flex-direction: column; min-height: 100vh; }
+    .card {
+      background: var(--card-bg); border-radius: var(--radius);
+      padding: clamp(16px, 4vw, 28px); box-shadow: var(--shadow-sm); border: 1px solid var(--border-light);
+    }
+    .section-title {
+      font-size: clamp(1.3rem, 4vw, 1.6rem); font-weight: 700; margin-bottom: 12px;
+      display: inline-block; position: relative;
+    }
+    .section-title::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 32px; height: 3px; border-radius: 3px; background: var(--accent);
+    }
+    .badge {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--accent); font-weight: 700; margin-bottom: 4px; display: inline-block;
+    }
+    .mobile-header {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      background: var(--sidebar-bg); color: #e0e0e0; padding: clamp(24px, 6vw, 36px) 20px;
+      border-radius: 0 0 24px 24px; margin-bottom: 20px;
+    }
+    .avatar-placeholder {
+      width: clamp(80px, 18vw, 100px); height: clamp(80px, 18vw, 100px); border-radius: 50%;
+      background: #333333; display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem; font-weight: 700; color: white; border: 3px solid #555555; margin-bottom: 12px;
+    }
+    .mobile-header h1 { font-size: clamp(1.4rem, 5vw, 1.8rem); font-weight: 700; margin-bottom: 2px; color: white; }
+    .mobile-header .title { color: #aaaaaa; font-weight: 500; font-size: 0.9rem; letter-spacing: 0.03em; margin-bottom: 8px; }
+    .contact-row {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 16px;
+      font-size: 0.8rem; color: #bbbbbb; margin: 10px 0;
+    }
+    .contact-row span, .contact-row a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+    .skill-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; }
+    .skill-tag {
+      padding: 4px 12px; background: rgba(255,255,255,0.1); border-radius: 20px;
+      font-size: 0.7rem; color: #cccccc;
+    }
+    .skill-tag.highlight { background: var(--accent); color: white; font-weight: 600; }
+    .main-content { padding: 0 16px 32px; display: flex; flex-direction: column; gap: 20px; }
+    .desktop-sidebar { display: none; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; }
+    .stat-item {
+      background: var(--card-bg); border-radius: 12px; padding: 14px 8px;
+      text-align: center; box-shadow: var(--shadow-sm);
+    }
+    .stat-number { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 0.7rem; color: var(--text-light); }
+
+    /* 专长区域 */
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .expertise-item {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 14px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 4px;
+      box-shadow: var(--shadow-sm);
+    }
+    .expertise-icon { font-size: 1.6rem; }
+    .expertise-name { font-size: 0.8rem; font-weight: 700; word-break: keep-all; }
+    .expertise-desc {
+      font-size: 0.65rem;
+      color: var(--text-light);
+      line-height: 1.3;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .timeline { position: relative; padding-left: 24px; margin: 8px 0; }
+    .timeline::before {
+      content: ''; position: absolute; left: 6px; top: 4px; bottom: 4px;
+      width: 2px; background: #cccccc; border-radius: 2px;
+    }
+    .timeline-item { position: relative; margin-bottom: 20px; padding-left: 8px; }
+    .timeline-dot {
+      position: absolute; left: -22px; top: 4px; width: 10px; height: 10px;
+      border-radius: 50%; background: white; border: 2px solid var(--accent);
+    }
+    .timeline-period { font-size: 0.7rem; color: var(--accent); font-weight: 600; }
+    .timeline-role { font-size: 0.95rem; font-weight: 700; margin: 2px 0; }
+    .timeline-company { font-size: 0.8rem; color: var(--text-mid); }
+
+    .music-player-wrapper {
+      margin-top: 8px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f5f5f5;
+    }
+    .music-player-wrapper audio {
+      display: block;
+      width: 100%;
+    }
+
+    .playlist-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .masonry-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .masonry-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      background: #e0e0e0;
+    }
+    .masonry-item:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+    .masonry-item img,
+    .masonry-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .masonry-item:hover img,
+    .masonry-item:hover video {
+      transform: scale(1.05);
+    }
+    .masonry-item-wide {
+      grid-column: span 2;
+    }
+    .masonry-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 14px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: white;
+      pointer-events: none;
+    }
+    .masonry-tag {
+      display: block;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.8;
+      margin-bottom: 2px;
+    }
+    .masonry-title {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px; right: 30px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+
+    @media (min-width: 768px) {
+      .resume-wrapper { flex-direction: row; }
+      .mobile-header { display: none; }
+      .desktop-sidebar {
+        display: flex; flex-direction: column; width: 280px; min-width: 280px;
+        background: var(--sidebar-bg); color: #cccccc; padding: 36px 24px;
+        height: 100vh; position: sticky; top: 0; overflow-y: auto;
+        border-radius: 0; box-shadow: 4px 0 24px rgba(0,0,0,0.1);
+      }
+      .main-content { flex: 1; padding: 32px 32px 48px; max-width: 750px; margin: 0 auto; }
+      .masonry-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      .masonry-item-wide { grid-column: span 2; }
+    }
+  </style>
+</head>
+<body>
+<div class="resume-wrapper">
+
+  <header class="mobile-header">
+    <div class="avatar-placeholder">沈</div>
+    <h1>沈志诚</h1>
+    <div class="title">环境设计 · 平面设计师 · 编曲 · AIGC</div>
+    <div class="contact-row">
+      <span>📍 广东</span>
+      <a href="mailto:1358041331@qq.com">📧 1358041331@qq.com</a>
+      <a href="tel:13528289362">📞 13528289362</a>
+    </div>
+    <div class="skill-tags">
+      <span class="skill-tag highlight">即梦</span>
+      <span class="skill-tag">ChatGPT</span>
+      <span class="skill-tag">Gemini</span>
+      <span class="skill-tag">FL Studio</span>
+      <span class="skill-tag">PS/AI</span>
+    </div>
+  </header>
+
+  <aside class="desktop-sidebar">
+    <div style="text-align: center; margin-bottom: 28px;">
+      <div class="avatar-placeholder" style="margin:0 auto 12px;">沈</div>
+      <h2 style="color:white; font-size:1.4rem; margin-bottom:2px;">沈志诚</h2>
+      <p style="color:#aaaaaa; font-size:0.85rem;">环境设计 · 平面设计 · 编曲 · AIGC</p>
+      <p style="color:#888888; font-size:0.75rem;">📍 中国 · 广东</p>
+    </div>
+    <div style="margin-bottom: 18px;">
+      <p style="color:#999999; font-size:0.65rem; letter-spacing:0.1em; margin-bottom:8px;">联系</p>
+      <p style="font-size:0.8rem; color:#cccccc;">1358041331@qq.com</p>
+      <p style="font-size:0.8rem; color:#cccccc;">13528289362</p>
+    </div>
+    <div>
+      <p style="color:#999999; font-size:0.65rem; letter-spacing:0.1em; margin-bottom:8px;">核心技能</p>
+      <div class="skill-tags" style="justify-content: flex-start;">
+        <span class="skill-tag highlight">即梦</span>
+        <span class="skill-tag">ChatGPT</span>
+        <span class="skill-tag">Gemini</span>
+        <span class="skill-tag">FL Studio</span>
+        <span class="skill-tag">PS/AI</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <section>
+      <span class="badge">关于我</span>
+      <h2 class="section-title">音画结合的时尚设计师</h2>
+      <p style="color:var(--text-mid); font-size:0.9rem; margin-bottom:12px;">
+        广东外语外贸大学环境设计本科，自学电子音乐编曲。热衷于潮流文化，致力于将视觉设计与电子音乐融合，打造独特的音画体验。拥有服饰品牌实战经验，擅长运用即梦、ChatGPT、Gemini等AI工具辅助平面设计，曾服务骆驼、Jeep、真维斯等品牌。同时具备音游编曲与商业配乐能力，曾为Teufel、海澜之家等品牌提供音乐制作。
+      </p>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-number">5+</div><div class="stat-label">合作品牌</div></div>
+        <div class="stat-item"><div class="stat-number">🏆</div><div class="stat-label">计算机设计大赛二等奖</div></div>
+        <div class="stat-item"><div class="stat-number">2年</div><div class="stat-label">服饰设计经验</div></div>
+      </div>
+    </section>
+
+    <section>
+      <span class="badge">专长</span>
+      <h2 class="section-title">核心能力</h2>
+      <div class="expertise-grid">
+        <div class="expertise-item">
+          <span class="expertise-icon">🤖</span>
+          <span class="expertise-name">AIGC平面设计</span>
+          <span class="expertise-desc">即梦 · ChatGPT · Gemini<br>文生图辅助创意与执行</span>
+        </div>
+        <div class="expertise-item">
+          <span class="expertise-icon">🎧</span>
+          <span class="expertise-name">电子音乐编曲</span>
+          <span class="expertise-desc">FL Studio<br>Future Bass / POP / House / Trap</span>
+        </div>
+        <div class="expertise-item">
+          <span class="expertise-icon">🎨</span>
+          <span class="expertise-name">视觉设计</span>
+          <span class="expertise-desc">PS / AI · AutoCAD<br>服饰图案 · 品牌视觉</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="badge">经历</span>
+      <h2 class="section-title">工作与教育</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p class="timeline-period">2024.08 — 2026.05</p>
+          <p class="timeline-role">男士内裤设计师</p>
+          <p class="timeline-company">中山优库服饰有限公司 · 中山</p>
+          <p style="font-size:0.75rem; color:var(--text-light); margin-top:2px;">
+            · 负责品牌"炙青春"的整体视觉落地，包括Logo、印花、包装设计<br>
+            · 为骆驼、四喜财神、Jeep、真维斯等品牌提供内裤品类设计服务<br>
+            · 熟练运用即梦、ChatGPT、Gemini等AI工具进行文生图，快速输出创意方案
+          </p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p class="timeline-period">2023.07 — 2024.07</p>
+          <p class="timeline-role">音频编辑（音乐游戏编曲）</p>
+          <p class="timeline-company">深圳市文泉工业产品设计有限公司 · 深圳</p>
+          <p style="font-size:0.75rem; color:var(--text-light); margin-top:2px;">
+            · 使用 FL Studio 进行电子音乐编曲，涵盖 Future Bass、POP、House、Trap 等风格<br>
+            · 利用 Malody V 软件为音乐谱写游戏下落式按键谱面<br>
+            · 采样搜集、音色制作，录制电子琴并编辑音效；按时间轴将音效嵌入游戏<br>
+            · 使用第三方软件为音游硬件编写灯光预设
+          </p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p class="timeline-period">2019 — 2023</p>
+          <p class="timeline-role">环境设计 本科</p>
+          <p class="timeline-company">广东外语外贸大学</p>
+          <p style="font-size:0.75rem; color:var(--text-light); margin-top:2px;">
+            🏆 第十四届中国大学生计算机设计大赛（音乐普通组）二等奖
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="badge">商业音乐</span>
+      <h2 class="section-title">大学编曲实践 · 品牌配乐合作</h2>
+      <p style="font-size:0.8rem; color:var(--text-mid); margin-bottom: 12px;">
+        受朋友音乐工作室邀请，担任编曲，参与多个知名品牌的广告与宣传配乐制作：
+      </p>
+      <div class="card" style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; align-items: baseline; gap: 8px;">
+          <span style="font-weight: 700; font-size: 0.9rem; min-width: 60px;">🇩🇪 Teufel</span>
+          <span style="font-size:0.8rem; color:var(--text-mid);">德国音响品牌中国内地宣传曲编曲</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 8px;">
+          <span style="font-weight: 700; font-size: 0.9rem; min-width: 60px;">👔 海澜之家</span>
+          <span style="font-size:0.8rem; color:var(--text-mid);">广告配乐制作</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 8px;">
+          <span style="font-weight: 700; font-size: 0.9rem; min-width: 60px;">🛋️ 汤臣杰逊</span>
+          <span style="font-size:0.8rem; color:var(--text-mid);">软装设计广告配乐制作</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 8px;">
+          <span style="font-weight: 700; font-size: 0.9rem; min-width: 60px;">🛏️ 金海马</span>
+          <span style="font-size:0.8rem; color:var(--text-mid);">家装展示广告配乐制作</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="badge">音乐成就</span>
+      <h2 class="section-title">获奖作品试听</h2>
+      <div class="card" style="margin-bottom: 12px;">
+        <p style="font-weight: 700; font-size: 0.95rem;">🏆 第十四届中国大学生计算机设计大赛 · 音乐普通组 二等奖</p>
+        <p style="font-size: 0.8rem; color: var(--text-mid);">原创电子音乐作品《嬉冰》，融合环境音效与电子节奏，展现空间氛围感。</p>
+      </div>
+      <div class="card" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <div style="width: 60px; height: 60px; background: #333; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🎵</div>
+        <div style="flex:1;">
+          <p style="font-weight: 700; font-size: 0.95rem;">《嬉冰》 · 获奖作品试听</p>
+          <p style="font-size: 0.8rem; color: var(--text-mid);">点击播放按钮即可在线试听</p>
+          <div class="music-player-wrapper">
+            <audio controls>
+              <source src="https://tsdowao-1301058524.cos.ap-guangzhou.myqcloud.com/%E5%AC%89%E5%86%B0%E6%88%90%E5%93%81.mp3" type="audio/mpeg">
+              您的浏览器不支持音频播放，请<a href="https://tsdowao-1301058524.cos.ap-guangzhou.myqcloud.com/%E5%AC%89%E5%86%B0%E6%88%90%E5%93%81.mp3">点击此处下载试听</a>。
+            </audio>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="badge">音乐作品集</span>
+      <h2 class="section-title">编曲作品精选</h2>
+      <p style="font-size:0.8rem; color:var(--text-mid); margin-bottom: 12px;">
+        收录了我的原创电子音乐编曲作品，涵盖 Future Bass、POP、House、Trap 等多种风格。
+      </p>
+      <a href="https://music.163.com/#/playlist?id=7638255925" target="_blank" rel="noopener" style="text-decoration: none;">
+        <div class="card playlist-card" style="display: flex; align-items: center; gap: 16px; padding: 20px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;">
+          <div style="width: 60px; height: 60px; background: #333; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; flex-shrink: 0;">
+            🎧
+          </div>
+          <div style="flex:1;">
+            <p style="font-weight: 700; font-size: 0.95rem; color: var(--text-dark); margin-bottom: 4px;">我的编曲作品歌单</p>
+            <p style="font-size: 0.8rem; color: var(--text-mid); margin-bottom: 6px;">Future Bass · POP · House · Trap</p>
+            <p style="font-size: 0.7rem; color: var(--accent); font-weight: 600;">▶ 点击在网易云音乐中打开</p>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <section>
+      <span class="badge">视觉作品</span>
+      <h2 class="section-title">平面与设计项目</h2>
+      <div class="masonry-grid">
+        <div class="masonry-item masonry-item-wide">
+          <div style="display: flex; width: 100%; height: 100%; gap: 4px;">
+            <div style="flex: 1; overflow: hidden;" class="lightbox-trigger">
+              <img src="https://tsdowao-1301058524.cos.ap-guangzhou.myqcloud.com/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8814%E6%97%A5%2000_55_13.png" alt="AI人物设定-主视觉" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div style="flex: 1; overflow: hidden;" class="lightbox-trigger">
+              <img src="https://tsdowao-1301058524.cos.ap-guangzhou.myqcloud.com/image-1778690084265.png" alt="AI人物设定-姿态特写" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div style="flex: 1; overflow: hidden;" class="lightbox-trigger">
+              <img src="https://tsdowao-1301058524.cos.ap-guangzhou.myqcloud.com/Gemini_Generated_Image_26dg5z26dg5z26dg.png" alt="AI人物设定-面部细节" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          </div>
+          <div class="masonry-caption">
+            <span class="masonry-tag">AIGC 人物设定</span>
+            <span class="masonry-title">AI 时装模特 · 概念设定集</span>
+          </div>
+        </div>
+        <div class="masonry-item lightbox-trigger">
+          <img src="https://tsdowao-1301058524.cos.ap-guangzhou.myqcloud.com/image-1778400712270.png" alt="AI生成的杂志页面" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <div class="masonry-caption">
+            <span class="masonry-tag">AIGC 平面</span>
+            <span class="masonry-title">AI 杂志页面设计</span>
+          </div>
+        </div>
+        <div class="masonry-item">
+          <video 
+            src="https://tsdowao-1301058524.cos.ap-guangzhou.myqcloud.com/5%E6%9C%8812%E6%97%A5%20%281%29%281%29.mp4"
+            poster="https://tsdowao-1301058524.cos.ap-guangzhou.myqcloud.com/5%E6%9C%8812%E6%97%A5%20%281%29%281%29-%E5%B0%81%E9%9D%A2.jpg"
+            controls playsinline webkit-playsinline preload="auto"
+            x5-video-player-type="h5" disableRemotePlayback loading="lazy"
+            style="object-fit: cover;">
+          </video>
+          <div class="masonry-caption">
+            <span class="masonry-tag">创意视频</span>
+            <span class="masonry-title">品牌动态视觉</span>
+          </div>
+        </div>
+        <div class="masonry-item">
+          <video 
+            src="https://tsdowao-1301058524.cos.ap-guangzhou.myqcloud.com/5%E6%9C%8812%E6%97%A5%20%282%29%282%29.mp4"
+            poster="https://tsdowao-1301058524.cos.ap-guangzhou.myqcloud.com/5%E6%9C%8812%E6%97%A5%20%282%29%282%29-%E5%B0%81%E9%9D%A2.jpg"
+            controls playsinline webkit-playsinline preload="auto"
+            x5-video-player-type="h5" disableRemotePlayback loading="lazy"
+            style="object-fit: cover;">
+          </video>
+          <div class="masonry-caption">
+            <span class="masonry-tag">创意视频</span>
+            <span class="masonry-title">Y3K风格 · 品牌动态视觉</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer style="text-align:center; font-size:0.7rem; color:var(--text-light); padding-top:12px; border-top:1px solid #cccccc;">
+      © 2026 沈志诚 · 环境设计 / 平面设计 / AIGC / 电子音乐编曲
+    </footer>
+  </main>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">&times;</button>
+  <img src="" alt="放大预览" id="lightboxImg">
+</div>
+
+<script>
+  (function() {
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (!isMobile) return;
+    window.addEventListener('load', function() {
+      var videos = document.querySelectorAll('video');
+      videos.forEach(function(video) {
+        video.preload = 'auto';
+        video.load();
+        video.play().then(function() {
+          video.pause();
+          video.currentTime = 0;
+        }).catch(function() {});
+      });
+    });
+  })();
+
+  (function() {
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    var closeBtn = document.getElementById('lightboxClose');
+
+    document.querySelectorAll('.lightbox-trigger img').forEach(function(img) {
+      img.addEventListener('click', function(e) {
+        lightboxImg.src = this.src;
+        lightbox.classList.add('active');
+      });
+    });
+
+    closeBtn.addEventListener('click', function() {
+      lightbox.classList.remove('active');
+    });
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
